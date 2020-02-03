@@ -1,12 +1,17 @@
 import nltk
 import unicodedata
 import codecs
-#import emoji #implementar isso depois 
+#import emoji IMPLEMENTAR ISSO DEPOIS!!!
 from nltk.stem import RSLPStemmer
 
 def normalize(sentence):
     sentence = sentence.lower()
     sentence = strip_accents(sentence)
+    sentence = nltk.word_tokenize(sentence)
+    return sentence
+
+def tokenize(sentence):
+    sentence = sentence.lower()
     sentence = nltk.word_tokenize(sentence)
     return sentence
 
@@ -36,7 +41,17 @@ def stemming(sentence):
         phrase.append(stemmer.stem(word.lower()))
     return phrase
 
-def tokenize(sentence):
-    sentence = sentence.lower()
-    sentence = nltk.word_tokenize(sentence)
-    return sentence
+  #Remover caracteteres irrelevantes como os não alfanuméricos;
+  #Remover palavras que não são relevantes, como as menções indicadas com "@";
+  #Converter termos para minúsculos, homogeneizando os dados (OLÁ - olá);
+  #Combinar palavras escritas incorretamente para uma única representação (legaaalll - legal);
+  #Considerar lematização (reduzir palavras como "sou", "é" para uma forma desflexionada como "ser")
+  #Quebrar o seu texto em termos.
+def limpeza_dos_dados(df, text_field):
+    df[text_field] = df[text_field].str.replace(r"http\S+", "")
+    df[text_field] = df[text_field].str.replace(r"http", "")
+    df[text_field] = df[text_field].str.replace(r"@\S+", "")
+    df[text_field] = df[text_field].str.replace(r"[^A-Za-z0-9(),!?@\'\`\"\_\n]", " ")
+    df[text_field] = df[text_field].str.replace(r"@", "at")
+    df[text_field] = df[text_field].str.lower()
+    return df
