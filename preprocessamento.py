@@ -47,11 +47,11 @@ def stemming(sentence):
   #Combinar palavras escritas incorretamente para uma única representação (legaaalll - legal);
   #Considerar lematização (reduzir palavras como "sou", "é" para uma forma desflexionada como "ser")
   #Quebrar o seu texto em termos.
-def limpeza_dos_dados(df, text_field):
-    df[text_field] = df[text_field].str.replace(r"http\S+", "")
-    df[text_field] = df[text_field].str.replace(r"http", "")
-    df[text_field] = df[text_field].str.replace(r"@\S+", "")
-    df[text_field] = df[text_field].str.replace(r"[^A-Za-z0-9(),!?@\'\`\"\_\n]", " ")
-    df[text_field] = df[text_field].str.replace(r"@", "at")
-    df[text_field] = df[text_field].str.lower()
+def limpeza_dos_dados(df, tuites):
+    df[tuites] = df[tuites].str.replace(r"http\S+", "")
+    df[tuites] = df[tuites].str.replace(r"http", "")
+    df[tuites] = df[tuites].str.replace(r"@\S+", "")
+    df[tuites] = df[tuites].str.replace(r"[^A-Za-z0-9(),!?@\'\`\"\_\n]", " ")
+    df[tuites] = df[tuites].str.replace(r"@", "at")
+    df[tuites] = df[tuites].str.lower()
     return df
