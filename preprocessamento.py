@@ -18,7 +18,6 @@ def remove_stopWords(sentence):
     return ' '.join(frase)
 
 def removerAcentosECaracteresEspeciais(palavra):
-
     nfkd = unicodedata.normalize('NFKD', palavra)
     palavraSemAcento = u"".join([c for c in nfkd if not unicodedata.combining(c)])
     palavraSemAcento = re.sub('[^a-zA-Z0-9 \\\]', '', palavraSemAcento)
